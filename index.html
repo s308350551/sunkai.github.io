@@ -3,30 +3,260 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的个人网站</title>
+    <title>智云科技 - 智能硬件解决方案</title>
+    <meta name="description" content="智云科技专注于智能硬件研发，提供工业级传感器、智能家居终端及定制化物联网解决方案。">
     <style>
+        /* ========== 全局重置与变量 ========== */
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --text-main: #1e293b;
+            --text-secondary: #64748b;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            --radius: 12px;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            color: var(--text-main);
+            line-height: 1.6;
+            background: var(--white);
         }
-        .container {
+        a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
+        img { max-width: 100%; display: block; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+        /* ========== 导航栏 ========== */
+        header {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e2e8f0;
+        }
+        nav {
+            display: flex; align-items: center; justify-content: space-between;
+            height: 72px;
+        }
+        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a { font-weight: 500; color: var(--text-secondary); }
+        .nav-links a:hover { color: var(--primary); }
+        .cta-btn {
+            padding: 10px 24px; border-radius: 8px; font-weight: 600;
+            background: var(--primary); color: var(--white);
+        }
+        .cta-btn:hover { background: var(--primary-dark); transform: translateY(-1px); }
+
+        /* ========== Hero 区域 ========== */
+        .hero {
+            padding: 160px 0 100px;
+            background: linear-gradient(135deg, #eff6ff 0%, #f0f9ff 100%);
             text-align: center;
-            padding: 2rem;
         }
-        h1 { font-size: 3rem; margin-bottom: 1rem; }
-        p { font-size: 1.2rem; opacity: 0.9; }
+        .hero h1 { font-size: 3rem; margin-bottom: 24px; letter-spacing: -0.02em; }
+        .hero p { font-size: 1.25rem; color: var(--text-secondary); max-width: 640px; margin: 0 auto 40px; }
+        .hero-tags { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+        .tag {
+            padding: 6px 16px; border-radius: 20px; font-size: 0.875rem; font-weight: 500;
+            background: var(--white); color: var(--primary); border: 1px solid #bfdbfe;
+        }
+
+        /* ========== 产品展示区 ========== */
+        .products { padding: 100px 0; background: var(--bg-light); }
+        .section-title { text-align: center; margin-bottom: 64px; }
+        .section-title h2 { font-size: 2.25rem; margin-bottom: 16px; }
+        .section-title p { color: var(--text-secondary); font-size: 1.125rem; }
+
+        .product-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 32px;
+        }
+        .product-card {
+            background: var(--white); border-radius: var(--radius); overflow: hidden;
+            box-shadow: var(--shadow); transition: all 0.3s ease;
+        }
+        .product-card:hover { transform: translateY(-6px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
+        .product-img {
+            width: 100%; height: 240px; object-fit: cover;
+            background: #e2e8f0; /* 占位背景色，替换图片后可删除 */
+        }
+        .product-info { padding: 28px; }
+        .product-info h3 { font-size: 1.375rem; margin-bottom: 12px; }
+        .product-info p { color: var(--text-secondary); margin-bottom: 20px; font-size: 0.95rem; }
+        .specs { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+        .spec-item {
+            padding: 4px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 500;
+            background: #eff6ff; color: var(--primary);
+        }
+        .product-link { font-weight: 600; color: var(--primary); display: inline-flex; align-items: center; gap: 6px; }
+        .product-link:hover { gap: 10px; }
+
+        /* ========== 优势模块 ========== */
+        .advantages { padding: 100px 0; }
+        .adv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 32px; }
+        .adv-item { text-align: center; padding: 32px 24px; border-radius: var(--radius); border: 1px solid #e2e8f0; }
+        .adv-icon { font-size: 2.5rem; margin-bottom: 20px; }
+        .adv-item h3 { margin-bottom: 12px; font-size: 1.25rem; }
+        .adv-item p { color: var(--text-secondary); font-size: 0.95rem; }
+
+        /* ========== 联系模块 ========== */
+        .contact { padding: 80px 0; background: var(--text-main); color: var(--white); text-align: center; }
+        .contact h2 { font-size: 2rem; margin-bottom: 16px; }
+        .contact p { opacity: 0.8; margin-bottom: 32px; font-size: 1.125rem; }
+        .contact-btn {
+            display: inline-block; padding: 14px 36px; border-radius: 8px; font-weight: 600; font-size: 1.05rem;
+            background: var(--primary); color: var(--white);
+        }
+        .contact-btn:hover { background: var(--primary-dark); }
+
+        /* ========== 页脚 ========== */
+        footer { padding: 32px 0; text-align: center; color: var(--text-secondary); font-size: 0.875rem; border-top: 1px solid #e2e8f0; }
+
+        /* ========== 移动端适配 ========== */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .nav-links { display: none; } /* 简化处理，移动端隐藏导航链接 */
+            .product-grid { grid-template-columns: 1fr; }
+            .hero { padding: 120px 0 60px; }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>你好，欢迎来到我的网站</h1>
-        <p>这是孙凯的网站</p>
-    </div>
+    <!-- 导航栏 -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">智云科技</a>
+                <ul class="nav-links">
+                    <li><a href="#products">核心产品</a></li>
+                    <li><a href="#advantages">技术优势</a></li>
+                    <li><a href="#contact">联系我们</a></li>
+                </ul>
+                <a href="#contact" class="cta-btn">获取方案</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero 主视觉 -->
+    <section class="hero">
+        <div class="container">
+            <h1>让智能硬件赋能千行百业</h1>
+            <p>我们提供从传感器到终端设备的全链路智能硬件解决方案，覆盖工业监测、智能家居、智慧农业三大核心场景</p>
+            <div class="hero-tags">
+                <span class="tag">🏭 工业级精度</span>
+                <span class="tag">🏠 全屋智能</span>
+                <span class="tag">🌾 农业物联网</span>
+                <span class="tag">🔧 定制开发</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 产品展示 -->
+    <section id="products" class="products">
+        <div class="container">
+            <div class="section-title">
+                <h2>核心产品矩阵</h2>
+                <p>每一款产品都经过严苛测试，确保稳定可靠</p>
+            </div>
+            <div class="product-grid">
+                <!-- 产品1 -->
+                <article class="product-card">
+                    <!-- 替换下方src为你的产品图片路径，如 images/sensor-pro.jpg -->
+                    <img class="product-img" src="https://placehold.co/600x400/2563eb/ffffff?text=YS-PRO+传感器" alt="YS-PRO 工业级温湿度传感器">
+                    <div class="product-info">
+                        <h3>YS-PRO 工业级温湿度传感器</h3>
+                        <p>专为工厂车间设计，支持 Modbus RTU 协议，可接入主流 PLC 系统，实时监测环境数据并触发告警</p>
+                        <div class="specs">
+                            <span class="spec-item">±0.2℃精度</span>
+                            <span class="spec-item">IP65防护</span>
+                            <span class="spec-item">-40~85℃宽温</span>
+                        </div>
+                        <a href="#contact" class="product-link">了解详情 →</a>
+                    </div>
+                </article>
+
+                <!-- 产品2 -->
+                <article class="product-card">
+                    <img class="product-img" src="https://placehold.co/600x400/1d4ed8/ffffff?text=HomeHub+中控" alt="HomeHub 全屋智能中控">
+                    <div class="product-info">
+                        <h3>HomeHub 全屋智能中控</h3>
+                        <p>兼容 Zigbee3.0 / Wi-Fi / 蓝牙 Mesh 三协议，一台设备联动全屋灯光、窗帘、安防，支持语音与APP双控</p>
+                        <div class="specs">
+                            <span class="spec-item">三协议融合</span>
+                            <span class="spec-item">本地化执行</span>
+                            <span class="spec-item">离线可用</span>
+                        </div>
+                        <a href="#contact" class="product-link">了解详情 →</a>
+                    </div>
+                </article>
+
+                <!-- 产品3 -->
+                <article class="product-card">
+                    <img class="product-img" src="https://placehold.co/600x400/3b82f6/ffffff?text=AgriNode+农业节点" alt="AgriNode 智慧农业监测节点">
+                    <div class="product-info">
+                        <h3>AgriNode 智慧农业监测节点</h3>
+                        <p>太阳能供电 + LoRa 远距离传输，实时采集土壤墒情、光照、CO₂浓度，数据直连云平台，助力精准种植</p>
+                        <div class="specs">
+                            <span class="spec-item">LoRa 5km传输</span>
+                            <span class="spec-item">太阳能续航</span>
+                            <span class="spec-item">免布线部署</span>
+                        </div>
+                        <a href="#contact" class="product-link">了解详情 →</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- 技术优势 -->
+    <section id="advantages" class="advantages">
+        <div class="container">
+            <div class="section-title">
+                <h2>为什么选择智云科技</h2>
+                <p>8年智能硬件研发经验，服务超2000家企业客户</p>
+            </div>
+            <div class="adv-grid">
+                <div class="adv-item">
+                    <div class="adv-icon">🔬</div>
+                    <h3>自研核心技术</h3>
+                    <p>拥有32项发明专利，传感器芯片与通信模组均为自主研发，不受外部供应链限制</p>
+                </div>
+                <div class="adv-item">
+                    <div class="adv-icon">⚙️</div>
+                    <h3>柔性定制能力</h3>
+                    <p>支持从外观ID、硬件电路到嵌入式软件的全流程定制，最小起订量仅100台</p>
+                </div>
+                <div class="adv-item">
+                    <div class="adv-icon">🛡️</div>
+                    <h3>工业级可靠性</h3>
+                    <p>所有产品通过 EMC、高低温、盐雾等12项严苛测试，平均无故障时间超50000小时</p>
+                </div>
+                <div class="adv-item">
+                    <div class="adv-icon">🤝</div>
+                    <h3>全周期技术支持</h3>
+                    <p>提供从选型咨询、方案设计到现场调试的一对一技术服务，7×24小时响应</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系模块 -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>获取专属产品方案</h2>
+            <p>留下您的需求，我们的技术顾问将在2小时内与您联系</p>
+            <a href="mailto:sales@zhiyuntech.com" class="contact-btn">发送邮件咨询</a>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <p>© 2024 智云科技有限公司 | 粤ICP备XXXXXXXX号 | 深圳市南山区科技园南路XX号</p>
+        </div>
+    </footer>
 </body>
 </html>
